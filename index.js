@@ -13,8 +13,8 @@ app.use(express.json());      // Standard for receiving JSON data
 
 // Environment Variables
 const MONGO_URI = process.env.MONGO_URI; 
-const PORT = 80; // Uses .env port or defaults to 80
-
+//const PORT = 80; // Uses .env port or defaults to 80
+const PORT = process.env.PORT || 3000;
 // Routes
 app.get('/api/status', (req, res) => {
   res.json({ message: "AWS Backend is reachable from Galway!" });
