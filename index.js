@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const app = express();
 
-// Security and Middleware
+// Security and Middleware 
 app.use(helmet());           // Protects against common web vulnerabilities
 app.use(cors());             // Allows your mobile app to talk to this server [cite: 243]
 app.use(express.json());      // Standard for receiving JSON data
