@@ -34,6 +34,7 @@ app.get('/api/status', (req, res) => {
   });
 });
 
+
 // NEW: Route to save data to MongoDB
 app.post('/api/save-quote', async (req, res) => {
   try {
@@ -45,6 +46,16 @@ app.post('/api/save-quote', async (req, res) => {
 
     console.log("📥 Data saved to MongoDB:", newEntry);
     res.status(201).json({ message: "Saved successfully!", data: newEntry });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET all saved quotes (newest first)
+app.get('/api/quotes', async (req, res) => {
+  try {
+    const quotes = await Quote.find().sort({ createdAt: -1 });
+    res.json(quotes);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
