@@ -9,7 +9,7 @@ const app = express();
 // Security and Middleware 
 app.use(helmet());           // Protects against common web vulnerabilities
 app.use(cors());             // Allows your mobile app to talk to this server [cite: 243]
-app.use(express.json());      // Standard for receiving JSON data
+app.use(express.json({ limit: '10mb' }));      // Standard for receiving JSON data, increased limit for base64 images
 
 // Environment Variables
 const MONGO_URI = process.env.MONGO_URI; 
@@ -19,7 +19,8 @@ const PORT = process.env.PORT || 3000;
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
   price: { type: Number, default: 0 },
-  description: { type: String }
+  description: { type: String },
+  image: { type: String } // Store Base64 string here
 });
 
 const Product = mongoose.model('Product', productSchema);
@@ -39,8 +40,8 @@ app.get('/api/status', (req, res) => {
 // CREATE a new product
 app.post('/products', async (req, res) => {
   try {
-    const { name, price, description } = req.body;
-    const newProduct = await Product.create({ name, price, description });
+    const { name, price, description, image } = req.body; // include image from client
+    const newProduct = await Product.create({ name, price, description, image });
     
     //const newProduct = new Product({ name, price, description });
     //await newProduct.save();
@@ -105,7 +106,7 @@ mongoose.connect(MONGO_URI)
 
     // Seed initial products if none exist
     const seedProducts = [
-      { name: 'tshirt', price: 20, description: 'Large green tshirt' }
+      { name: 'tshirt', price: 20, description: 'Large green tshirt', image: 'base64string...' }
     ];
 
     try {
