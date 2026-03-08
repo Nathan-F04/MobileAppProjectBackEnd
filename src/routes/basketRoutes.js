@@ -11,10 +11,4 @@ router.post('/add', basketController.addToBasket);
 // Remove from basket (DELETE /basket/remove) - reduces quantity or removes
 router.delete('/remove', basketController.removeFromBasket);
 
-// Remove a single item by itemId (DELETE /basket/removeItem)
-router.delete('/removeItem', basketController.removeItem);
-
-// Clear a user's basket (DELETE /basket/clear)
-router.delete('/clear', basketController.clearBasket);
-
 module.exports = router;
