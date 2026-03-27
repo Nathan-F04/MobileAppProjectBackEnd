@@ -54,14 +54,14 @@ exports.updateCar = async (req, res) => {
 exports.deleteCar = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Product.findByIdAndDelete(id);
+    const deleted = await Car.findByIdAndDelete(id);
     if (!deleted) {
-      return res.status(404).json({ message: "Product not found" });
+      return res.status(404).json({ message: "Car not found" });
     }
-    res.json({ message: "Product deleted", product: deleted });
+    res.json({ message: "car deleted", car: deleted });
   } catch (err) {
     res
       .status(500)
-      .json({ message: "Error deleting product", error: err.message });
+      .json({ message: "Error deleting car", error: err.message });
   }
 };
