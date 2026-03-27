@@ -29,9 +29,8 @@ exports.addToBasket = async (req, res) => {
       await basket.populate('items.car');
       return res.status(201).json({ message: 'Added to new basket', basket });
     }
-    console.log(basket.items.find(i => i.car === carId));
-    console.log(basket.items.find(i => i.car.toString() === carId));
-    const existing = basket.items.find(i => i.car === carId);
+
+    const existing = basket.items?.find(i => i.car && String(i.car) === String(carId));
     if (existing) {
       existing.quantity = Math.max(1, existing.quantity + quantity);
     } else {
