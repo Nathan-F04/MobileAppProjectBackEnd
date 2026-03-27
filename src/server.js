@@ -13,7 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 const protect = require('./middleware/authMiddleware');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 // Security and Middleware
 app.use(helmet());
