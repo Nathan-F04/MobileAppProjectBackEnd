@@ -7,6 +7,7 @@ const connectDB = require('./config/db'); // Import DB logic
 
 // Import Routes
 const productRoutes = require('./routes/productRoutes');
+const carRoutes = require('./routes/carRoutes');
 const indexRoutes = require('./routes/indexRoutes');
 const basketRoutes = require('./routes/basketRoutes');
 const authRoutes = require('./routes/authRoutes');
@@ -28,6 +29,8 @@ app.use('/', indexRoutes); // Handles /api/status
 app.use('/auth', authRoutes);
 // Mount product routes at the '/products' base path (JWT protected)
 app.use('/products', protect, productRoutes);
+// Mount car routes at the '/cars' base path (JWT protected)
+app.use('/cars', protect, carRoutes);
 // Mount basket routes (JWT protected)
 app.use('/basket', protect, basketRoutes);
 
