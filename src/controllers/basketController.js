@@ -2,7 +2,7 @@ import Basket from "../models/Basket.js";
 import Car from "../models/Car.js";
 
 // View basket for a user
-exports.getBasket = async (req, res) => {
+export const getBasket = async (req, res) => {
   try {
     const { userId } = req.params;
     const basket = await Basket.findOne({ userId }).populate('items.car');
@@ -14,7 +14,7 @@ exports.getBasket = async (req, res) => {
 };
 
 // Add car to basket (or increase quantity)
-exports.addToBasket = async (req, res) => {
+export const addToBasket = async (req, res) => {
   try {
     const { userId, carId, quantity = 1 } = req.body;
     if (!userId || !carId) return res.status(400).json({ message: 'userId and carId required' });
@@ -45,7 +45,7 @@ exports.addToBasket = async (req, res) => {
 };
 
 // Remove car or reduce quantity
-exports.removeFromBasket = async (req, res) => {
+export const removeFromBasket = async (req, res) => {
   try {
     const { userId, carId, removeAll = false } = req.body;
     if (!userId || !carId) return res.status(400).json({ message: 'userId and carId required' });
@@ -72,7 +72,7 @@ exports.removeFromBasket = async (req, res) => {
 };
 
 // Remove a basket item by its subdocument id (itemId)
-exports.removeItem = async (req, res) => {
+export const removeItem = async (req, res) => {
   try {
     const { userId, itemId } = req.body;
     if (!userId || !itemId) return res.status(400).json({ message: 'userId and itemId required' });
@@ -93,7 +93,7 @@ exports.removeItem = async (req, res) => {
 };
 
 // Clear all items for a user's basket
-exports.clearBasket = async (req, res) => {
+export const clearBasket = async (req, res) => {
   try {
     const { userId } = req.body;
     if (!userId) return res.status(400).json({ message: 'userId required' });

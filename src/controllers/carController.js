@@ -3,7 +3,7 @@ import Car from "../models/Car.js"; // Import the model
 import { uploadImage } from "../services/s3Service.js";
 
 // READ all cars
-exports.getCars = async (req, res) => {
+export const getCars = async (req, res) => {
   try {
     const cars = await Car.find();
     res.json(cars);
@@ -13,7 +13,7 @@ exports.getCars = async (req, res) => {
 };
 
 // CREATE a new car
-exports.createCar = async (req, res) => {
+export const createCar = async (req, res) => {
   try {
 
     console.log("HEADERS:", req.headers["content-type"]);
@@ -41,7 +41,7 @@ exports.createCar = async (req, res) => {
   }
 };
 
-exports.updateCar = async (req, res) => {
+export const updateCar = async (req, res) => {
   try {
     const { id } = req.params;
 
@@ -85,7 +85,7 @@ exports.updateCar = async (req, res) => {
   }
 };
 
-exports.deleteCar = async (req, res) => {
+export const deleteCar = async (req, res) => {
   try {
     const { id } = req.params;
 

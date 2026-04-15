@@ -1,5 +1,5 @@
 // src/controllers/statusController.js
-exports.getStatus = (req, res) => {
+export const getStatus = (req, res) => {
   res.json({
     status: "Online",
     message: "AWS Backend is reachable!",
