@@ -1,6 +1,7 @@
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const basketController = require('../controllers/basketController');
+
+import basketController from "../controllers/basketController.js";
 
 // View basket for a user (GET /basket/:userId)
 router.get('/:userId', basketController.getBasket);

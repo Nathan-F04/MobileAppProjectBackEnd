@@ -1,6 +1,5 @@
-const Basket = require('../models/Basket');
-const Product = require('../models/Product');
-const Car = require('../models/Car');
+import Basket from "../models/Basket.js";
+import Car from "../models/Car.js";
 
 // View basket for a user
 exports.getBasket = async (req, res) => {
