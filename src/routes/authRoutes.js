@@ -8,4 +8,4 @@ router.post('/register', register);
 router.post('/login', login);
 router.post('/push-token', protect, savePushToken);
 
-module.exports = router;
+export default router;
