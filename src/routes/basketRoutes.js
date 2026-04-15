@@ -12,4 +12,4 @@ router.post('/add', basketController.addToBasket);
 // Remove from basket (DELETE /basket/remove) - reduces quantity or removes
 router.delete('/remove', basketController.removeFromBasket);
 
-module.exports = router;
+export default router;
