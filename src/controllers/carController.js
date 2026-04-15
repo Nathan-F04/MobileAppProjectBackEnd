@@ -15,6 +15,10 @@ exports.getCars = async (req, res) => {
 // CREATE a new car
 exports.createCar = async (req, res) => {
   try {
+
+    console.log("HEADERS:", req.headers["content-type"]);
+    console.log("BODY:", req.body);
+    console.log("FILE:", req.file);
     let imageData = null;
 
     if (req.file) {
