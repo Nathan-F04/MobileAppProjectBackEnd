@@ -4,7 +4,7 @@ import multer from "multer";
 const router = express.Router();
 
 // Import the controller functions
-import carController from "../controllers/carController.js";
+import * as carController from "../controllers/carController.js";
 
 
 const upload = multer({
