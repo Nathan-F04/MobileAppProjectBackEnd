@@ -1,5 +1,6 @@
 // src/controllers/carController.js
-const Car = require("../models/Car"); // Import the model!
+const Car = require("../models/Car"); // Import the model
+import { uploadImage } from "../services/s3Service.js";
 
 // READ all cars
 exports.getCars = async (req, res) => {
@@ -14,14 +15,21 @@ exports.getCars = async (req, res) => {
 // CREATE a new car
 exports.createCar = async (req, res) => {
   try {
-    const { model, licensePlate, year, price, description, image } = req.body; // include image support
+    let imageData = null;
+
+    if (req.file) {
+      imageData = await uploadImage(req.file);
+    }
+
+    const { model, licensePlate, year, price, description } = req.body; // include image support
     const newCar = await Car.create({
       model,
       licensePlate,
-      year,
-      price,
+      year: Number(year),
+      price: Number(price),
       description,
-      image,
+      imageUrl: imageData?.url,
+      imageKey: imageData?.key,
     });
     res.status(201).json({ message: "Car added successfully!", car: newCar });
   } catch (err) {
@@ -29,39 +37,75 @@ exports.createCar = async (req, res) => {
   }
 };
 
-// UPDATE a car
 exports.updateCar = async (req, res) => {
   try {
     const { id } = req.params;
-    const updates = req.body;
 
-    const updatedCar = await Car.findByIdAndUpdate(id, updates, {
-      new: true,
-      runValidators: true,
-    });
+    const car = await Car.findById(id);
 
-    if (!updatedCar) {
+    if (!car) {
       return res.status(404).json({ message: "Car not found" });
     }
 
-    res.json({ message: "Car updated", car: updatedCar });
+    const { model, licensePlate, year, price, description } = req.body;
+
+    if (model !== undefined) car.model = model;
+    if (licensePlate !== undefined) car.licensePlate = licensePlate;
+    if (year !== undefined) car.year = Number(year);
+    if (price !== undefined) car.price = Number(price);
+    if (description !== undefined) car.description = description;
+
+    if (req.file) {
+      // delete old image
+      if (car.imageKey) {
+        await deleteImage(car.imageKey);
+      }
+
+      const newImage = await uploadImage(req.file);
+      car.imageUrl = newImage.url;
+      car.imageKey = newImage.key;
+    }
+
+    const updatedCar = await car.save();
+
+    res.json({
+      message: "Car updated",
+      car: updatedCar,
+    });
+
   } catch (err) {
-    res.status(500).json({ message: "Error updating car", error: err.message });
+    res.status(500).json({
+      message: "Error updating car",
+      error: err.message,
+    });
   }
 };
 
-// DELETE a car
 exports.deleteCar = async (req, res) => {
   try {
     const { id } = req.params;
-    const deleted = await Car.findByIdAndDelete(id);
-    if (!deleted) {
+
+    const car = await Car.findById(id);
+
+    if (!car) {
       return res.status(404).json({ message: "Car not found" });
     }
-    res.json({ message: "car deleted", car: deleted });
+
+    if (car.imageKey) {
+      await deleteImage(car.imageKey);
+    }
+
+    await Car.findByIdAndDelete(id);
+
+    res.json({
+      message: "Car deleted successfully",
+      car,
+    });
+
   } catch (err) {
-    res
-      .status(500)
-      .json({ message: "Error deleting car", error: err.message });
+    res.status(500).json({
+      message: "Error deleting car",
+      error: err.message,
+    });
   }
 };

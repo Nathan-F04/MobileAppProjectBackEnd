@@ -7,7 +7,9 @@ const carSchema = new mongoose.Schema({
   year: { type: Number, default: 0 },
   price: { type: Number, required: true },
   description: { type: String },
-  image: { type: String }, // Store Base64 string here
+  //image: { type: String }, // Store Base64 string here
+  imageUrl: { type: String },
+  imageKey: { type: String },
 });
 
 // Important: module.exports
