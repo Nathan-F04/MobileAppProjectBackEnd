@@ -1,5 +1,5 @@
 // src/controllers/carController.js
-const Car = require("../models/Car"); // Import the model
+import Car from "../models/Car.js"; // Import the model
 import { uploadImage } from "../services/s3Service.js";
 
 // READ all cars

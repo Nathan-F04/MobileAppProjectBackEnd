@@ -1,18 +1,21 @@
 // src/server.js
-require('dotenv').config(); // Load env vars first!
-const express = require('express');
-const helmet = require('helmet');
-const cors = require('cors');
-const connectDB = require('./config/db'); // Import DB logic
+import dotenv from "dotenv";
+import express from "express";
+import helmet from "helmet";
+import cors from "cors";
+import connectDB from "./config/db.js"; // Import DB logic
 
 // Import Routes
-const productRoutes = require('./routes/productRoutes');
-const carRoutes = require('./routes/carRoutes');
-const indexRoutes = require('./routes/indexRoutes');
-const basketRoutes = require('./routes/basketRoutes');
-const authRoutes = require('./routes/authRoutes');
-const protect = require('./middleware/authMiddleware');
+import productRoutes from "./routes/productRoutes.js";
+import carRoutes from "./routes/carRoutes.js";
+import indexRoutes from "./routes/indexRoutes.js";
+import basketRoutes from "./routes/basketRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
+import protect from "./middleware/authMiddleware.js";
+
+
+dotenv.config(); // Load env vars first!
 const app = express();
 const PORT = process.env.PORT || 3002;
 

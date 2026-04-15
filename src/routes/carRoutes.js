@@ -1,9 +1,10 @@
 // src/routes/carRoutes.js
-const express = require('express');
-const multer = require('multer');
+import express from "express";
+import multer from "multer";
 const router = express.Router();
+
 // Import the controller functions
-const carController = require('../controllers/carController');
+import carController from "../controllers/carController.js";
 
 
 const upload = multer({

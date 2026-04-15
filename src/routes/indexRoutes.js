@@ -1,7 +1,6 @@
-// src/routes/indexRoutes.js
-const express = require('express');
+import express from "express";
 const router = express.Router();
-const statusController = require('../controllers/statusController');
+import statusController from "../controllers/statusController.js";
 
 router.get('/api/status', statusController.getStatus);
 

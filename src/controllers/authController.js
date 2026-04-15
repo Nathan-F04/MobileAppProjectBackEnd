@@ -1,6 +1,6 @@
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/User');
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../models/User.js";
 
 const generateToken = (user) =>
   jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '7d' });

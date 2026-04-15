@@ -1,14 +1,20 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import mongoose from "mongoose";
+
+const { Schema } = mongoose;
 
 const basketItemSchema = new Schema({
-  car: { type: Schema.Types.ObjectId, ref: 'Car', required: true },
+  car: { type: Schema.Types.ObjectId, ref: "Car", required: true },
   quantity: { type: Number, default: 1, min: 1 }
 });
 
-const basketSchema = new Schema({
-  userId: { type: String, required: true, index: true },
-  items: [basketItemSchema]
-}, { timestamps: true });
+const basketSchema = new Schema(
+  {
+    userId: { type: String, required: true, index: true },
+    items: [basketItemSchema]
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model('Basket', basketSchema);
+const Basket = mongoose.model("Basket", basketSchema);
+
+export default Basket;
