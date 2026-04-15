@@ -66,4 +66,4 @@ const savePushToken = async (req, res) => {
   }
 };
 
-module.exports = { register, login, savePushToken };
+export { register, login, savePushToken };
