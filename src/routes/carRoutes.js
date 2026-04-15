@@ -1,12 +1,18 @@
 // src/routes/carRoutes.js
+import multer from "multer";
 const express = require('express');
 const router = express.Router();
 // Import the controller functions
 const carController = require('../controllers/carController');
 
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
+
 router.get('/', carController.getCars);
-router.post('/', carController.createCar);
-router.put('/:id', carController.updateCar);
+router.post('/', upload.single("image"), carController.createCar);
+router.put('/:id', upload.single("image"), carController.updateCar);
 router.delete('/:id', carController.deleteCar);
 
-module.exports = router;
+export default router;

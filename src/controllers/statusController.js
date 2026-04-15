@@ -3,7 +3,7 @@ exports.getStatus = (req, res) => {
   res.json({
     status: "Online",
     message: "AWS Backend is reachable!",
-    owner: "Fergus Downey",
+    owner: "Nathan Ferry",
     timestamp: new Date()
   });
 };
