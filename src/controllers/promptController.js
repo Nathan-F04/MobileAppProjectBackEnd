@@ -2,12 +2,12 @@ import OpenAI from "openai";
 
 const client = new OpenAI({
   baseURL: "https://models.github.ai/inference",
-  apiKey: process.env.GITHUB_TOKEN
+  apiKey: process.env.OPENAI_API_KEY
 });
 
 export const getValue = async (req, res) => {
   try {
-    console.log("TOKEN:", process.env.GITHUB_TOKEN);
+    console.log("TOKEN:", process.env.OPENAI_API_KEY);
     const car = req.body;
  
     const response = await client.chat.completions.create({
