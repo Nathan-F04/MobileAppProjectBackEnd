@@ -1,37 +1,22 @@
 // src/config/db.js
 
 import mongoose from "mongoose";
-const Basket = require('../models/Basket'); // Import the model
 
 const connectDB = async () => {
-
   try {
-    
     const uri = process.env.MONGO_URI;
-    if (!uri) throw new Error('MONGO_URI is not defined in environment');
-    await mongoose.connect(uri, { /* options */ });
-    console.log("✅ Successfully connected to MongoDB");
 
+    if (!uri) {
+      throw new Error("MONGO_URI is not defined in environment");
+    }
+
+    await mongoose.connect(uri);
+
+    console.log("✅ Successfully connected to MongoDB");
   } catch (err) {
     console.error("❌ MongoDB Connection Error:", err.message);
     process.exit(1);
   }
 };
 
-module.exports = connectDB;
-
-/*
-    const uri = process.env.MONGO_URI;
-    await mongoose.connect(uri);
-    console.log("✅ Connected");
-
-    // THE NUCLEAR OPTION to delete all baskets before seeding products
-    const result = await Basket.deleteMany({});
-    console.log(`🧹 DELETED EVERYTHING: ${result.deletedCount} items removed from basket.`);
-
-    // ... rest of your seeding logic
-  } catch (err) {
-    console.error(err);
-  }
-
-  */
+export default connectDB;
