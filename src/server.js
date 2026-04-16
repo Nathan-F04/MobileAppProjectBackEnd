@@ -34,7 +34,7 @@ app.use('/auth', authRoutes);
 app.use('/cars', protect, carRoutes);
 // Mount basket routes (JWT protected)
 app.use('/basket', protect, basketRoutes);
-app.use('/prompt', protect, promptRoutes);
+app.use('/prompt', promptRoutes);
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`🚀 Server running on port: ${PORT}`);
