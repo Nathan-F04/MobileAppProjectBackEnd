@@ -7,6 +7,7 @@ const client = new OpenAI({
 
 export const getValue = async (req, res) => {
   try {
+    console.log("TOKEN:", process.env.GITHUB_TOKEN);
     const car = req.body;
  
     const response = await client.chat.completions.create({
