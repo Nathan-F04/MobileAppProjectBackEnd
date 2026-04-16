@@ -1,10 +1,3 @@
-import OpenAI from "openai";
-
-const client = new OpenAI({
-  baseURL: "https://models.github.ai/inference",
-  apiKey: process.env.OPENAI_API_KEY
-});
-
 export const getValue = async (req, res) => {
   try {
     console.log("TOKEN:", process.env.OPENAI_API_KEY);
