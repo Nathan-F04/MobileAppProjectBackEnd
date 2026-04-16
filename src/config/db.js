@@ -1,6 +1,6 @@
 // src/config/db.js
 
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 const Basket = require('../models/Basket'); // Import the model
 
 const connectDB = async () => {
