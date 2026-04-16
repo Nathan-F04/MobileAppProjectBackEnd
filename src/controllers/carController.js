@@ -15,17 +15,13 @@ export const getCars = async (req, res) => {
 // CREATE a new car
 export const createCar = async (req, res) => {
   try {
-
-    console.log("HEADERS:", req.headers["content-type"]);
-    console.log("BODY:", req.body);
-    console.log("FILE:", req.file);
     let imageData = null;
 
     if (req.file) {
       imageData = await uploadImage(req.file);
     }
 
-    const { model, licensePlate, year, price, description } = req.body; // include image support
+    const { model, licensePlate, year, price, description } = req.body;
     const newCar = await Car.create({
       model,
       licensePlate,
