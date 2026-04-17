@@ -1,3 +1,4 @@
+// src/services/s3Service.js
 import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
 
 const s3 = new S3Client({
@@ -12,7 +13,6 @@ export async function uploadImage(file) {
     Key: key,
     Body: file.buffer,
     ContentType: file.mimetype,
-    ACL: "public-read"
   });
 
   await s3.send(command);

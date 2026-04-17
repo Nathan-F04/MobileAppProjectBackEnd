@@ -1,3 +1,4 @@
+// src/controllers/basketController.js
 import Basket from "../models/Basket.js";
 import Car from "../models/Car.js";
 
@@ -68,27 +69,6 @@ export const removeFromBasket = async (req, res) => {
     res.json({ message: 'Basket updated', basket });
   } catch (err) {
     res.status(500).json({ message: 'Error removing from basket', error: err.message });
-  }
-};
-
-// Remove a basket item by its subdocument id (itemId)
-export const removeItem = async (req, res) => {
-  try {
-    const { userId, itemId } = req.body;
-    if (!userId || !itemId) return res.status(400).json({ message: 'userId and itemId required' });
-
-    const basket = await Basket.findOne({ userId });
-    if (!basket) return res.status(404).json({ message: 'Basket not found' });
-
-    const idx = basket.items.findIndex(i => i._id.toString() === itemId);
-    if (idx === -1) return res.status(404).json({ message: 'Item not found in basket' });
-
-    basket.items.splice(idx, 1);
-    await basket.save();
-    await basket.populate('items.car');
-    res.json({ message: 'Item removed', basket });
-  } catch (err) {
-    res.status(500).json({ message: 'Error removing item', error: err.message });
   }
 };
 
