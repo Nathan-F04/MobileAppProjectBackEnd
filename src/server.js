@@ -7,7 +7,6 @@ import connectDB from "./config/db.js"; // Import DB logic
 
 // Import Routes
 import carRoutes from "./routes/carRoutes.js";
-import indexRoutes from "./routes/indexRoutes.js";
 import basketRoutes from "./routes/basketRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
 import promptRoutes from "./routes/promptRoutes.js";
@@ -15,12 +14,6 @@ import promptRoutes from "./routes/promptRoutes.js";
 import protect from "./middleware/authMiddleware.js";
 
 dotenv.config(); // Load env vars first!
-import OpenAI from "openai";
-
-const client = new OpenAI({
-  baseURL: "https://models.github.ai/inference",
-  apiKey: process.env.OPENAI_API_KEY,
-});
 const app = express();
 const PORT = process.env.PORT || 3002;
 
@@ -33,7 +26,6 @@ app.use(express.json({ limit: "10mb" }));
 connectDB();
 
 // Use Routes
-app.use("/", indexRoutes); // Handles /api/status
 app.use("/auth", authRoutes);
 // Mount car routes at the '/cars' base path (JWT protected)
 app.use("/cars", protect, carRoutes);
